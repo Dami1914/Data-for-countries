@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Countries = ({names}) => {
+const Countries = ({names,handleClick}) => {
   return (
     <li>
-        {names}
+        {names} <button onClick={handleClick}>show</button>
     </li>
   )
 }

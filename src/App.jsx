@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import countryservice from './services/countrydata'
 import Countries from './components/Countries'
+import CountryData from './components/CountryData'
 
 function App() {
 
@@ -10,13 +11,18 @@ function App() {
   const [countries, setCountries] = useState([])
   const [country, setCountry] = useState("")
   const [notifState,setNotifState] = useState({})
+  const [countryData,setCountryData] = useState(null)
   
-  const filteredData = countries.filter((ele)=> ele.name.common.toLowerCase().includes(country))
+  const filteredData = countries.filter((ele)=> ele.name.common.toLowerCase().includes(country.toLowerCase()))
   console.log(filteredData.length)
 
   function handleChange(event){
       const {value} = event.target
       setCountry(value)
+  }
+
+  function handleClick(country){
+      setCountry(country)
   }
 
   
@@ -27,7 +33,6 @@ function App() {
         setCountries(response)
       })
       .catch((response)=>console.log(response))
-
   },[])
  
   return (
@@ -38,9 +43,12 @@ function App() {
       <ul>
         {
           country === "" || country === " " ? "" : 
-            (filteredData.length <= 10 ? filteredData.map((ele)=>{
-              return <Countries names={ele.name.common} key={ele.cca2}/>
-            }): "Too many matches,specify another filter")
+            (filteredData.length <= 10 ? 
+              (filteredData.length !== 1? filteredData.map((ele)=>{
+              return <Countries handleClick={()=>handleClick(ele.name.common)} names={ele.name.common} key={ele.cca2}/>
+            }):
+              <CountryData filteredData={filteredData} countryData={countryData} setCountryData={setCountryData} />
+            ): "Too many matches,specify another filter")
         }
       </ul>
     </>
