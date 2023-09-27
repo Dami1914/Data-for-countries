@@ -60,9 +60,9 @@ const CountryData = ({countryData,setCountryData,filteredData}) => {
         </div>
         <div>
             <h1>weather in {countryData.name.common}</h1>
-            <div>temperature: {countryData.main.temp} </div>
-            {<img src={`https://openweathermap.org/img/wn/${countryData.weather.icon}@2x.png`} alt={countryData.weather.description} />}
-            <div>wind: {countryData.wind.deg} </div>
+            <div>temperature: {countryData.main.temp + " Celcius"} </div>
+            {<img src={`https://openweathermap.org/img/wn/${countryData.weather[0].icon}@2x.png`} alt={countryData.weather.description} />}
+            <div>wind: {countryData.wind.deg + " m/s"} </div>
         </div>
     </div>
   )
