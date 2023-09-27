@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import countryservice from './services/countrydata'
+import countryservice from './services/countryservices'
 import Countries from './components/Countries'
 import CountryData from './components/CountryData'
 
@@ -11,7 +11,7 @@ function App() {
   const [countries, setCountries] = useState([])
   const [country, setCountry] = useState("")
   const [notifState,setNotifState] = useState({})
-  const [countryData,setCountryData] = useState(null)
+  const [countryData,setCountryData] = useState({})
   
   const filteredData = countries.filter((ele)=> ele.name.common.toLowerCase().includes(country.toLowerCase()))
   console.log(filteredData.length)
@@ -32,7 +32,7 @@ function App() {
       .then(response=>{
         setCountries(response)
       })
-      .catch((response)=>console.log(response))
+      .catch((response)=>console.log(response.message))
   },[])
  
   return (
